@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, ParseIntPipe } from '@nestjs/common';
 import { CreateClienteDto } from './dto/create-cliente.dto.js';
 import { UpdateClienteDto } from './dto/update-cliente.dto.js';
 import { PrismaService } from '../prisma/prisma.service.js';
@@ -21,16 +21,16 @@ export class ClientesService {
 
   }
 
-  findAll() {
-
+  findAll(clientesEmpresaId: number) {
+    return this.prisma.cliente.findMany({ where: { empresaId: clientesEmpresaId }, orderBy: { nome: `asc` } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cliente`;
+  findOne(empresaId: number, id: number) {
+    return this.prisma.cliente.findUnique({ where: { empresaId: empresaId, id} });
   }
 
-  update(id: number, updateClienteDto: UpdateClienteDto) {
-    return `This action updates a #${id} cliente`;
+  async update(id: number, updateClienteDto: UpdateClienteDto) {return 
+    return this.prisma.cliente.findUnique({where: {id}});
   }
 
   remove(id: number) {

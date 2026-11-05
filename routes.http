@@ -15,9 +15,14 @@ GET http://localhost:3000/empresas
 
 POST http://localhost:3000/clientes
 Content-Type: application/json
-x-empresa-id: 2
+x-empresa-id: 1
 
 {
     "nome": "Daniel",
     "telefone": "11999999990"
 }
+
+###
+GET http://localhost:3000/clientes
+Content-Type: application/json
+x-empresa-id: 1
